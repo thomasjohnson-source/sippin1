@@ -109,6 +109,28 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   await requireAuth()
   const { id } = await params
-  await sql`DELETE FROM invoices WHERE id=${id}`
+
+  await sql.begin(async sql => {
+    const [invoice] = await sql`SELECT * FROM invoices WHERE id = ${id}`
+    if (!invoice) return
+
+    if (invoice.status === 'paid') {
+      // Restore inventory
+      const lines = await sql`SELECT product_id, quantity FROM invoice_lines WHERE invoice_id = ${id} AND product_id IS NOT NULL`
+      for (const line of lines) {
+        await sql`UPDATE products SET current_stock = current_stock + ${line.quantity} WHERE id = ${line.product_id}`
+        await sql`DELETE FROM inventory_adjustments WHERE product_id = ${line.product_id} AND reason = ${'Sold — Invoice ' + invoice.invoice_number}`
+      }
+      // Delete COGS transaction
+      await sql`DELETE FROM transactions WHERE reference = ${invoice.invoice_number} AND description LIKE 'COGS%'`
+      // Clear FK then delete payment transaction
+      const txId = invoice.transaction_id
+      await sql`UPDATE invoices SET transaction_id = NULL WHERE id = ${id}`
+      if (txId) await sql`DELETE FROM transactions WHERE id = ${txId}`
+    }
+
+    await sql`DELETE FROM invoices WHERE id = ${id}`
+  })
+
   return NextResponse.json({ ok: true })
 }
