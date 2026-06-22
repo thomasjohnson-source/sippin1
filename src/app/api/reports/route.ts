@@ -25,14 +25,28 @@ export async function GET(req: NextRequest) {
       balance: ['asset','expense'].includes(type) ? Number(r.total_debit) - Number(r.total_credit) : Number(r.total_credit) - Number(r.total_debit),
     }))
 
-  const revenue   = balance('revenue')
-  const expenses  = balance('expense')
-  const assets    = balance('asset')
+  const revenue     = balance('revenue')
+  const expenses    = balance('expense')
   const liabilities = balance('liability')
-  const equity    = balance('equity')
+  const equity      = balance('equity')
   const totalRevenue  = revenue.reduce((s, r) => s + r.balance, 0)
   const totalExpenses = expenses.reduce((s, r) => s + r.balance, 0)
   const netIncome = totalRevenue - totalExpenses
+
+  // Actual physical inventory value (current_stock × effective cost per unit)
+  const [invRow] = await sql`
+    SELECT COALESCE(SUM(p.current_stock *
+      CASE WHEN p.unit_cost_override = 1 THEN p.unit_cost
+           ELSE COALESCE((SELECT SUM(i.cost_per_unit) FROM ingredients i WHERE i.product_id = p.id), 0)
+      END), 0) AS inventory_value
+    FROM products p
+  `
+  const physicalInventoryValue = Number(invRow?.inventory_value ?? 0)
+
+  // Override 1310 Inventory—Finished Goods with actual physical stock value
+  const assets = balance('asset').map(r =>
+    r.code === '1310' ? { ...r, balance: physicalInventoryValue } : r
+  )
 
   const cashflow = await sql`
     SELECT t.date, t.description, tl.debit, tl.credit

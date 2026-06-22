@@ -25,10 +25,11 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   if (body.status === 'paid') {
     const [invoice] = await sql`SELECT * FROM invoices WHERE id = ${id}`
     if (!invoice) return NextResponse.json({ error: 'Not found' }, { status: 404 })
-    if (invoice.status === 'paid') return NextResponse.json(invoice)
 
     await sql.begin(async sql => {
-      await sql`UPDATE invoices SET status='paid', paid_at=${today()} WHERE id=${id}`
+      // Atomic update — only proceeds if status is still not paid
+      const [locked] = await sql`UPDATE invoices SET status='paid', paid_at=${today()} WHERE id=${id} AND status != 'paid' RETURNING *`
+      if (!locked) return // already paid, skip everything
 
       const [arAcct]  = await sql`SELECT id FROM accounts WHERE code='1100'`
       const [cashAcct] = await sql`SELECT id FROM accounts WHERE code='1000'`
