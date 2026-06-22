@@ -66,7 +66,7 @@ export async function GET() {
     revenueLastMonth: Number(revenue_last_month),
     outstanding: { amount: Number(outstanding), count },
     cash: Number(cash),
-    lowStock: lowProducts.map((p: { name: string }) => p.name),
+    lowStock: lowProducts.map((p) => (p as { name: string }).name),
     chart: months,
     recentTx,
     unpaidInvoices,
