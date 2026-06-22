@@ -161,7 +161,7 @@ const STATUS_PILL: Record<string, { bg: string; color: string }> = {
   paid:    { bg: TEAL,      color: WHITE },
 }
 
-function e(type: unknown, props: Record<string, unknown> | null, ...ch: unknown[]) {
+function e(type: unknown, props: Record<string, unknown> | null, ...ch: React.ReactNode[]) {
   return React.createElement(type as React.ElementType, props, ...ch)
 }
 
