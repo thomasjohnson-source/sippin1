@@ -59,11 +59,11 @@ export default function ReportsPage() {
   return (
     <div className="p-8 max-w-3xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold" style={{ color: '#1A1A1A' }}>Reports</h1>
+        <h1 className="brand-heading text-4xl" style={{ color: '#1A1A1A' }}>Reports</h1>
         <div className="flex gap-4 mt-1">
           <Link href="/books" className="text-sm hover:underline" style={{ color: '#6B6560' }}>Ledger</Link>
           <Link href="/books/accounts" className="text-sm hover:underline" style={{ color: '#6B6560' }}>Accounts</Link>
-          <span className="text-sm" style={{ color: '#1B7B5E' }}>Reports</span>
+          <span className="text-sm" style={{ color: '#FD8141' }}>Reports</span>
         </div>
       </div>
 
@@ -78,7 +78,7 @@ export default function ReportsPage() {
           {(['pnl', 'balance', 'cashflow'] as const).map(t => (
             <button key={t} onClick={() => setTab(t)}
               className="px-3 py-2 text-sm font-medium transition-colors"
-              style={{ background: tab === t ? '#1B7B5E' : 'white', color: tab === t ? '#fff' : '#6B6560' }}>
+              style={{ background: tab === t ? '#FD8141' : 'white', color: tab === t ? '#fff' : '#6B6560' }}>
               {t === 'pnl' ? 'P&L' : t === 'balance' ? 'Balance Sheet' : 'Cash Flow'}
             </button>
           ))}
@@ -87,7 +87,7 @@ export default function ReportsPage() {
 
       {!data ? (
         <div className="flex items-center justify-center py-16">
-          <div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#F47920', borderTopColor: 'transparent' }} />
+          <div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#FD8141', borderTopColor: 'transparent' }} />
         </div>
       ) : (
         <div className="bg-white border rounded-xl p-6" style={{ borderColor: '#E8E2D9' }}>
@@ -95,12 +95,12 @@ export default function ReportsPage() {
             <>
               <h2 className="text-base font-bold mb-4" style={{ color: '#1A1A1A' }}>Profit & Loss</h2>
               <p className="text-xs mb-4" style={{ color: '#6B6560' }}>{fmtDate(data.from)} — {fmtDate(data.to)}</p>
-              <Section title="Revenue" rows={data.pnl.revenue} total={data.pnl.totalRevenue} totalLabel="Total Revenue" color="#1B7B5E" />
-              <Section title="Expenses" rows={data.pnl.expenses} total={data.pnl.totalExpenses} totalLabel="Total Expenses" color="#F47920" />
+              <Section title="Revenue" rows={data.pnl.revenue} total={data.pnl.totalRevenue} totalLabel="Total Revenue" color="#6AC07C" />
+              <Section title="Expenses" rows={data.pnl.expenses} total={data.pnl.totalExpenses} totalLabel="Total Expenses" color="#FD8141" />
               <div className="border-t pt-4 mt-2" style={{ borderColor: '#E8E2D9' }}>
                 <div className="flex justify-between font-bold text-base">
                   <span style={{ color: '#1A1A1A' }}>Net Income</span>
-                  <span style={{ color: data.pnl.netIncome >= 0 ? '#1B7B5E' : '#ef4444' }}>{fmt(data.pnl.netIncome)}</span>
+                  <span style={{ color: data.pnl.netIncome >= 0 ? '#6AC07C' : '#ef4444' }}>{fmt(data.pnl.netIncome)}</span>
                 </div>
               </div>
             </>
@@ -110,7 +110,7 @@ export default function ReportsPage() {
             <>
               <h2 className="text-base font-bold mb-4" style={{ color: '#1A1A1A' }}>Balance Sheet</h2>
               <p className="text-xs mb-4" style={{ color: '#6B6560' }}>As of {fmtDate(data.to)}</p>
-              <Section title="Assets" rows={data.balanceSheet.assets} total={data.balanceSheet.totalAssets} totalLabel="Total Assets" color="#1B7B5E" />
+              <Section title="Assets" rows={data.balanceSheet.assets} total={data.balanceSheet.totalAssets} totalLabel="Total Assets" color="#6AC07C" />
               <Section title="Liabilities" rows={data.balanceSheet.liabilities} total={data.balanceSheet.totalLiabilities} totalLabel="Total Liabilities" color="#ef4444" />
               <Section title="Equity" rows={data.balanceSheet.equity} total={data.balanceSheet.totalEquity} totalLabel="Total Equity" color="#6366f1" />
               <div className="border-t pt-4 mt-2" style={{ borderColor: '#E8E2D9' }}>
@@ -143,7 +143,7 @@ export default function ReportsPage() {
                       <tr key={i} className="border-b" style={{ borderColor: '#E8E2D9' }}>
                         <td className="py-2" style={{ color: '#6B6560' }}>{fmtDate(r.date)}</td>
                         <td className="py-2" style={{ color: '#1A1A1A' }}>{r.description}</td>
-                        <td className="py-2 text-right" style={{ color: '#1B7B5E' }}>{r.debit > 0 ? fmt(r.debit) : ''}</td>
+                        <td className="py-2 text-right" style={{ color: '#6AC07C' }}>{r.debit > 0 ? fmt(r.debit) : ''}</td>
                         <td className="py-2 text-right" style={{ color: '#ef4444' }}>{r.credit > 0 ? fmt(r.credit) : ''}</td>
                       </tr>
                     ))}

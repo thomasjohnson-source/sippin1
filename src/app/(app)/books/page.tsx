@@ -150,7 +150,7 @@ function JournalModal({ initial, accounts, onClose, onSaved }: {
             <tfoot>
               <tr className="text-xs font-semibold border-t" style={{ borderColor: '#E8E2D9' }}>
                 <td className="pt-2">
-                  <button onClick={addLine} className="text-xs" style={{ color: '#F47920' }}>+ Add line</button>
+                  <button onClick={addLine} className="text-xs" style={{ color: '#FD8141' }}>+ Add line</button>
                 </td>
                 <td className="text-right pt-2">{fmt(totalDebit)}</td>
                 <td className="text-right pt-2">{fmt(totalCredit)}</td>
@@ -169,7 +169,7 @@ function JournalModal({ initial, accounts, onClose, onSaved }: {
           <button onClick={onClose} className="px-4 py-2 text-sm rounded-lg border" style={{ borderColor: '#E8E2D9', color: '#6B6560' }}>Cancel</button>
           <button onClick={save} disabled={!desc || !balanced || saving}
             className="px-4 py-2 text-sm rounded-lg text-white font-medium disabled:opacity-50"
-            style={{ background: '#1B7B5E' }}>
+            style={{ background: '#FD8141' }}>
             {saving ? 'Saving…' : isEdit ? 'Save Changes' : 'Save Entry'}
           </button>
         </div>
@@ -209,16 +209,16 @@ export default function BooksPage() {
     <div className="p-8 max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold" style={{ color: '#1A1A1A' }}>Books</h1>
+          <h1 className="brand-heading text-4xl" style={{ color: '#1A1A1A' }}>Books</h1>
           <div className="flex gap-4 mt-1">
-            <span className="text-sm" style={{ color: '#1B7B5E' }}>Ledger</span>
+            <span className="text-sm" style={{ color: '#FD8141' }}>Ledger</span>
             <Link href="/books/accounts" className="text-sm hover:underline" style={{ color: '#6B6560' }}>Chart of Accounts</Link>
             <Link href="/books/reports" className="text-sm hover:underline" style={{ color: '#6B6560' }}>Reports</Link>
           </div>
         </div>
         <button onClick={() => setModal('new')}
           className="px-4 py-2 text-sm rounded-xl text-white font-medium"
-          style={{ background: '#1B7B5E' }}>
+          style={{ background: '#FD8141' }}>
           + New Entry
         </button>
       </div>

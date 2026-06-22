@@ -11,9 +11,9 @@ type Invoice = {
 
 const STATUS_COLORS: Record<string, { bg: string; text: string }> = {
   draft:   { bg: '#E8E2D9', text: '#6B6560' },
-  sent:    { bg: '#FEF3E8', text: '#F47920' },
+  sent:    { bg: '#FEF3E8', text: '#FD8141' },
   overdue: { bg: '#FEE2E2', text: '#ef4444' },
-  paid:    { bg: '#DCFCE7', text: '#1B7B5E' },
+  paid:    { bg: '#DCFCE7', text: '#6AC07C' },
 }
 
 export default function InvoicesPage() {
@@ -51,10 +51,10 @@ export default function InvoicesPage() {
   return (
     <div className="p-8 max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold" style={{ color: '#1A1A1A' }}>Invoices</h1>
+        <h1 className="brand-heading text-4xl" style={{ color: '#1A1A1A' }}>Invoices</h1>
         <button onClick={createNew} disabled={creating}
           className="px-4 py-2 text-sm rounded-xl text-white font-medium disabled:opacity-50"
-          style={{ background: '#F47920' }}>
+          style={{ background: '#FD8141' }}>
           {creating ? 'Creating…' : '+ New Invoice'}
         </button>
       </div>
@@ -71,7 +71,7 @@ export default function InvoicesPage() {
           <button key={key} onClick={() => setStatusFilter(key)}
             className="px-3 py-1.5 text-xs font-medium rounded-full transition-colors"
             style={{
-              background: statusFilter === key ? '#1B7B5E' : '#E8E2D9',
+              background: statusFilter === key ? '#FD8141' : '#E8E2D9',
               color: statusFilter === key ? '#fff' : '#6B6560',
             }}>
             {label}

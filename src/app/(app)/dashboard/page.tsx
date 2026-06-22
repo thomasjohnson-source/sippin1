@@ -4,6 +4,9 @@ import Link from 'next/link'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 import { fmt, fmtDate } from '@/lib/utils'
 
+const ORANGE = '#FD8141'
+const GREEN  = '#6AC07C'
+
 type DashData = {
   revenueThisMonth: number
   revenueLastMonth: number
@@ -26,10 +29,10 @@ function StatCard({ label, value, sub, color }: { label: string; value: string; 
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  draft: '#6B6560',
-  sent: '#F47920',
+  draft:   '#6B6560',
+  sent:    ORANGE,
   overdue: '#ef4444',
-  paid: '#1B7B5E',
+  paid:    GREEN,
 }
 
 export default function DashboardPage() {
@@ -42,7 +45,7 @@ export default function DashboardPage() {
   if (!data) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#F47920', borderTopColor: 'transparent' }} />
+        <div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: ORANGE, borderTopColor: 'transparent' }} />
       </div>
     )
   }
@@ -54,38 +57,23 @@ export default function DashboardPage() {
   return (
     <div className="p-8 max-w-6xl mx-auto space-y-8">
       <div>
-        <h1 className="text-2xl font-bold" style={{ color: '#1A1A1A' }}>Dashboard</h1>
+        <h1 className="brand-heading text-4xl" style={{ color: '#1A1A1A' }}>Dashboard</h1>
         <p className="text-sm mt-0.5" style={{ color: '#6B6560' }}>Welcome back to OJ Sippin Business.</p>
       </div>
 
-      {/* Stat cards */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard
-          label="Revenue This Month"
-          value={fmt(data.revenueThisMonth)}
+        <StatCard label="Revenue This Month" value={fmt(data.revenueThisMonth)}
           sub={revChange ? `${Number(revChange) >= 0 ? '+' : ''}${revChange}% vs last month` : 'No prior data'}
-          color="#1B7B5E"
-        />
-        <StatCard
-          label="Cash Balance"
-          value={fmt(data.cash)}
-          color="#1A1A1A"
-        />
-        <StatCard
-          label="Outstanding Invoices"
-          value={fmt(data.outstanding.amount)}
+          color={GREEN} />
+        <StatCard label="Cash Balance" value={fmt(data.cash)} color="#1A1A1A" />
+        <StatCard label="Outstanding Invoices" value={fmt(data.outstanding.amount)}
           sub={`${data.outstanding.count} invoice${data.outstanding.count !== 1 ? 's' : ''}`}
-          color={data.outstanding.amount > 0 ? '#F47920' : '#1A1A1A'}
-        />
-        <StatCard
-          label="Low Stock Alerts"
-          value={String(data.lowStock.length)}
+          color={data.outstanding.amount > 0 ? ORANGE : '#1A1A1A'} />
+        <StatCard label="Low Stock Alerts" value={String(data.lowStock.length)}
           sub={data.lowStock.length > 0 ? data.lowStock.slice(0, 2).join(', ') + (data.lowStock.length > 2 ? '…' : '') : 'All stocked'}
-          color={data.lowStock.length > 0 ? '#ef4444' : '#1A1A1A'}
-        />
+          color={data.lowStock.length > 0 ? '#ef4444' : '#1A1A1A'} />
       </div>
 
-      {/* Chart */}
       <div className="bg-white border rounded-xl p-6" style={{ borderColor: '#E8E2D9' }}>
         <h2 className="text-sm font-semibold mb-4" style={{ color: '#1A1A1A' }}>Revenue vs Expenses — Last 6 Months</h2>
         <ResponsiveContainer width="100%" height={220}>
@@ -94,18 +82,17 @@ export default function DashboardPage() {
             <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#6B6560' }} axisLine={false} tickLine={false} />
             <YAxis tickFormatter={(v: number) => `$${v >= 1000 ? (v/1000).toFixed(0)+'k' : v}`} tick={{ fontSize: 11, fill: '#6B6560' }} axisLine={false} tickLine={false} />
             <Tooltip formatter={(v) => fmt(v as number)} contentStyle={{ borderRadius: 8, border: '1px solid #E8E2D9', fontSize: 13 }} />
-            <Bar dataKey="revenue" name="Revenue" fill="#1B7B5E" radius={[3,3,0,0]} />
-            <Bar dataKey="expenses" name="Expenses" fill="#F47920" radius={[3,3,0,0]} />
+            <Bar dataKey="revenue" name="Revenue" fill={GREEN} radius={[3,3,0,0]} />
+            <Bar dataKey="expenses" name="Expenses" fill={ORANGE} radius={[3,3,0,0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {/* Unpaid invoices */}
         <div className="bg-white border rounded-xl p-5" style={{ borderColor: '#E8E2D9' }}>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-semibold" style={{ color: '#1A1A1A' }}>Open Invoices</h2>
-            <Link href="/invoices" className="text-xs font-medium hover:underline" style={{ color: '#F47920' }}>View all</Link>
+            <Link href="/invoices" className="text-xs font-medium hover:underline" style={{ color: ORANGE }}>View all</Link>
           </div>
           {data.unpaidInvoices.length === 0 ? (
             <p className="text-sm py-4 text-center" style={{ color: '#6B6560' }}>No open invoices</p>
@@ -134,11 +121,10 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Recent transactions */}
         <div className="bg-white border rounded-xl p-5" style={{ borderColor: '#E8E2D9' }}>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-semibold" style={{ color: '#1A1A1A' }}>Recent Transactions</h2>
-            <Link href="/books" className="text-xs font-medium hover:underline" style={{ color: '#F47920' }}>View all</Link>
+            <Link href="/books" className="text-xs font-medium hover:underline" style={{ color: ORANGE }}>View all</Link>
           </div>
           {data.recentTx.length === 0 ? (
             <p className="text-sm py-4 text-center" style={{ color: '#6B6560' }}>No transactions yet</p>

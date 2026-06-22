@@ -50,17 +50,17 @@ export default function SettingsPage() {
 
   if (!form) return (
     <div className="flex items-center justify-center h-64">
-      <div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#F47920', borderTopColor: 'transparent' }} />
+      <div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#FD8141', borderTopColor: 'transparent' }} />
     </div>
   )
 
   return (
     <div className="p-8 max-w-2xl mx-auto space-y-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold" style={{ color: '#1A1A1A' }}>Settings</h1>
+        <h1 className="brand-heading text-4xl" style={{ color: '#1A1A1A' }}>Settings</h1>
         <button onClick={save} disabled={saving}
           className="px-4 py-2 text-sm rounded-xl text-white font-medium disabled:opacity-50"
-          style={{ background: '#1B7B5E' }}>
+          style={{ background: '#FD8141' }}>
           {saving ? 'Saving…' : saved ? 'Saved ✓' : 'Save Changes'}
         </button>
       </div>

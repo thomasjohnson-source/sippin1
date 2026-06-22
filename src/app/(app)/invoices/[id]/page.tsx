@@ -17,9 +17,9 @@ type Invoice = {
 
 const STATUS_COLORS: Record<string, { bg: string; text: string }> = {
   draft:   { bg: '#E8E2D9', text: '#6B6560' },
-  sent:    { bg: '#FEF3E8', text: '#F47920' },
+  sent:    { bg: '#FEF3E8', text: '#FD8141' },
   overdue: { bg: '#FEE2E2', text: '#ef4444' },
-  paid:    { bg: '#DCFCE7', text: '#1B7B5E' },
+  paid:    { bg: '#DCFCE7', text: '#6AC07C' },
 }
 
 export default function InvoicePage() {
@@ -115,7 +115,7 @@ export default function InvoicePage() {
 
   if (!invoice) return (
     <div className="flex items-center justify-center h-64">
-      <div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#F47920', borderTopColor: 'transparent' }} />
+      <div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#FD8141', borderTopColor: 'transparent' }} />
     </div>
   )
 
@@ -130,7 +130,7 @@ export default function InvoicePage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <button onClick={() => router.push('/invoices')} className="text-sm hover:underline" style={{ color: '#6B6560' }}>← Invoices</button>
-          <h1 className="text-2xl font-bold" style={{ color: '#1A1A1A' }}>{invoice.invoice_number}</h1>
+          <h1 className="brand-heading text-3xl" style={{ color: '#1A1A1A' }}>{invoice.invoice_number}</h1>
           <span className="px-2 py-0.5 rounded-full text-xs font-medium" style={{ background: colors.bg, color: colors.text }}>
             {invoice.status}
           </span>
@@ -139,21 +139,21 @@ export default function InvoicePage() {
           {isEditable && dirty && (
             <button onClick={save} disabled={saving}
               className="px-3 py-2 text-sm rounded-lg text-white font-medium disabled:opacity-50"
-              style={{ background: '#1B7B5E' }}>
+              style={{ background: '#FD8141' }}>
               {saving ? 'Saving…' : 'Save'}
             </button>
           )}
           {invoice.status === 'draft' && (
             <button onClick={() => save().then(() => markStatus('sent'))}
               className="px-3 py-2 text-sm rounded-lg text-white font-medium"
-              style={{ background: '#F47920' }}>
+              style={{ background: '#FD8141' }}>
               Mark Sent
             </button>
           )}
           {(invoice.status === 'sent' || invoice.status === 'overdue') && (
             <button onClick={() => markStatus('paid')}
               className="px-3 py-2 text-sm rounded-lg text-white font-medium"
-              style={{ background: '#1B7B5E' }}>
+              style={{ background: '#FD8141' }}>
               Mark Paid
             </button>
           )}
@@ -176,7 +176,7 @@ export default function InvoicePage() {
         <div className="flex justify-between gap-8">
           <div className="space-y-1">
             <div className="flex items-center gap-2 mb-2">
-              <div className="w-6 h-6 rounded flex items-center justify-center text-xs font-black" style={{ background: '#F47920', color: '#fff' }}>OJ</div>
+              <div className="w-6 h-6 rounded flex items-center justify-center text-xs font-black" style={{ background: '#FD8141', color: '#fff' }}>OJ</div>
               <span className="font-bold text-sm" style={{ color: '#1A1A1A' }}>{s.company_name}</span>
             </div>
             {s.company_address && <p className="text-xs" style={{ color: '#6B6560' }}>{s.company_address}</p>}
@@ -306,7 +306,7 @@ export default function InvoicePage() {
             </tbody>
           </table>
           {isEditable && (
-            <button onClick={addLine} className="mt-3 text-xs font-medium hover:underline" style={{ color: '#F47920' }}>
+            <button onClick={addLine} className="mt-3 text-xs font-medium hover:underline" style={{ color: '#FD8141' }}>
               + Add line item
             </button>
           )}
@@ -327,7 +327,7 @@ export default function InvoicePage() {
             )}
             <div className="flex justify-between font-bold text-base border-t pt-2" style={{ borderColor: '#E8E2D9' }}>
               <span style={{ color: '#1A1A1A' }}>Total</span>
-              <span style={{ color: '#F47920' }}>{fmt(total)}</span>
+              <span style={{ color: '#FD8141' }}>{fmt(total)}</span>
             </div>
           </div>
         </div>

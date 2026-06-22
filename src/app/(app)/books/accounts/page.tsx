@@ -14,8 +14,8 @@ const TYPE_LABELS: Record<string, string> = {
   revenue: 'Revenue', expense: 'Expenses',
 }
 const TYPE_COLORS: Record<string, string> = {
-  asset: '#1B7B5E', liability: '#ef4444', equity: '#6366f1',
-  revenue: '#F47920', expense: '#6B6560',
+  asset: '#6AC07C', liability: '#ef4444', equity: '#6366f1',
+  revenue: '#FD8141', expense: '#6B6560',
 }
 
 function balance(a: Account): number {
@@ -33,10 +33,10 @@ export default function AccountsPage() {
   return (
     <div className="p-8 max-w-4xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold" style={{ color: '#1A1A1A' }}>Chart of Accounts</h1>
+        <h1 className="brand-heading text-4xl" style={{ color: '#1A1A1A' }}>Chart of Accounts</h1>
         <div className="flex gap-4 mt-1">
           <Link href="/books" className="text-sm hover:underline" style={{ color: '#6B6560' }}>Ledger</Link>
-          <span className="text-sm" style={{ color: '#1B7B5E' }}>Accounts</span>
+          <span className="text-sm" style={{ color: '#FD8141' }}>Accounts</span>
           <Link href="/books/reports" className="text-sm hover:underline" style={{ color: '#6B6560' }}>Reports</Link>
         </div>
       </div>

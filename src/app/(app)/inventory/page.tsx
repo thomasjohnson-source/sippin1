@@ -37,7 +37,7 @@ function EditableNumber({
       onBlur={commit}
       onKeyDown={e => { if (e.key === 'Enter') commit(); if (e.key === 'Escape') setEditing(false) }}
       className="w-full text-right rounded px-2 py-0.5 text-sm outline-none"
-      style={{ border: '1.5px solid #F47920', minWidth: 0 }}
+      style={{ border: '1.5px solid #FD8141', minWidth: 0 }}
     />
   )
 
@@ -46,7 +46,7 @@ function EditableNumber({
       className="w-full text-right rounded px-1 py-0.5 text-sm transition-colors hover:bg-orange-50 group relative"
       style={{ color: '#1A1A1A' }}>
       {prefix}{value.toFixed(decimals)}{suffix}
-      <span className="absolute -top-0.5 -right-0.5 text-xs opacity-0 group-hover:opacity-60 transition-opacity" style={{ color: '#F47920', fontSize: 8 }}>✎</span>
+      <span className="absolute -top-0.5 -right-0.5 text-xs opacity-0 group-hover:opacity-60 transition-opacity" style={{ color: '#FD8141', fontSize: 8 }}>✎</span>
     </button>
   )
 }
@@ -135,7 +135,7 @@ function ProductModal({ initial, onClose, onSaved }: {
           <button onClick={onClose} className="px-4 py-2 text-sm border rounded-lg" style={{ borderColor: '#E8E2D9', color: '#6B6560' }}>Cancel</button>
           <button onClick={save} disabled={!form.sku || !form.name || saving}
             className="px-4 py-2 text-sm rounded-lg text-white font-medium disabled:opacity-50"
-            style={{ background: '#1B7B5E' }}>
+            style={{ background: '#FD8141' }}>
             {saving ? 'Saving…' : initial ? 'Save Changes' : 'Add Product'}
           </button>
         </div>
@@ -225,7 +225,7 @@ function IngredientModal({ initial, products, onClose, onSaved }: {
             {costPerCan > 0 && (
               <div className="flex items-center justify-between pt-1 border-t" style={{ borderColor: '#E8E2D9' }}>
                 <span className="text-xs font-medium" style={{ color: '#6B6560' }}>Cost per can</span>
-                <span className="text-sm font-bold" style={{ color: '#F47920' }}>{fmt(costPerCan)}</span>
+                <span className="text-sm font-bold" style={{ color: '#FD8141' }}>{fmt(costPerCan)}</span>
               </div>
             )}
           </div>
@@ -234,7 +234,7 @@ function IngredientModal({ initial, products, onClose, onSaved }: {
           <button onClick={onClose} className="px-4 py-2 text-sm border rounded-lg" style={{ borderColor: '#E8E2D9', color: '#6B6560' }}>Cancel</button>
           <button onClick={save} disabled={!form.name || saving}
             className="px-4 py-2 text-sm rounded-lg text-white font-medium disabled:opacity-50"
-            style={{ background: '#1B7B5E' }}>
+            style={{ background: '#FD8141' }}>
             {saving ? 'Saving…' : initial ? 'Save Changes' : 'Add Ingredient'}
           </button>
         </div>
@@ -286,7 +286,7 @@ function AdjustModal({ item, onClose, onDone }: {
           <button onClick={onClose} className="px-4 py-2 text-sm border rounded-lg" style={{ borderColor: '#E8E2D9', color: '#6B6560' }}>Cancel</button>
           <button onClick={save} disabled={!qty || !reason || saving}
             className="px-4 py-2 text-sm rounded-lg text-white font-medium disabled:opacity-50"
-            style={{ background: '#F47920' }}>
+            style={{ background: '#FD8141' }}>
             {saving ? 'Saving…' : 'Adjust'}
           </button>
         </div>
@@ -345,7 +345,7 @@ function ProductionModal({ products, onClose, onDone }: {
           <button onClick={onClose} className="px-4 py-2 text-sm border rounded-lg" style={{ borderColor: '#E8E2D9', color: '#6B6560' }}>Cancel</button>
           <button onClick={save} disabled={!productId || !qty || saving}
             className="px-4 py-2 text-sm rounded-lg text-white font-medium disabled:opacity-50"
-            style={{ background: '#1B7B5E' }}>
+            style={{ background: '#FD8141' }}>
             {saving ? 'Saving…' : 'Log Run'}
           </button>
         </div>
@@ -425,18 +425,18 @@ export default function InventoryPage() {
   return (
     <div className="p-8 max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold" style={{ color: '#1A1A1A' }}>Inventory</h1>
+        <h1 className="brand-heading text-4xl" style={{ color: '#1A1A1A' }}>Inventory</h1>
         <div className="flex gap-2">
           {tab === 'products' && (
             <>
               <button onClick={() => setShowProduction(true)}
                 className="px-3 py-2 text-sm rounded-xl border font-medium"
-                style={{ borderColor: '#1B7B5E', color: '#1B7B5E' }}>
+                style={{ borderColor: '#FD8141', color: '#FD8141' }}>
                 + Log Production
               </button>
               <button onClick={() => setProductModal('new')}
                 className="px-3 py-2 text-sm rounded-xl text-white font-medium"
-                style={{ background: '#1B7B5E' }}>
+                style={{ background: '#FD8141' }}>
                 + Add Product
               </button>
             </>
@@ -444,7 +444,7 @@ export default function InventoryPage() {
           {tab === 'ingredients' && (
             <button onClick={() => setIngredientModal('new')}
               className="px-3 py-2 text-sm rounded-xl text-white font-medium"
-              style={{ background: '#1B7B5E' }}>
+              style={{ background: '#FD8141' }}>
               + Add Ingredient
             </button>
           )}
@@ -456,8 +456,8 @@ export default function InventoryPage() {
           <button key={t} onClick={() => setTab(t)}
             className="px-4 py-2.5 text-sm font-medium capitalize border-b-2 transition-colors"
             style={{
-              borderColor: tab === t ? '#F47920' : 'transparent',
-              color: tab === t ? '#F47920' : '#6B6560',
+              borderColor: tab === t ? '#FD8141' : 'transparent',
+              color: tab === t ? '#FD8141' : '#6B6560',
             }}>
             {t === 'products' ? `Products (${products.length})` : `Ingredients (${ingredients.length})`}
           </button>
@@ -472,7 +472,7 @@ export default function InventoryPage() {
               <p className="text-sm mb-3">No products yet.</p>
               <button onClick={() => setProductModal('new')}
                 className="px-4 py-2 text-sm rounded-xl text-white font-medium"
-                style={{ background: '#1B7B5E' }}>
+                style={{ background: '#FD8141' }}>
                 + Add your first product
               </button>
             </div>
@@ -523,13 +523,13 @@ export default function InventoryPage() {
                               {hasIngredients && (
                                 <button onClick={() => resetUnitCost(p.id)}
                                   title={`Reset to ingredient total: ${fmt(p.ingredient_cost_total)}`}
-                                  className="text-xs hover:underline" style={{ color: '#F47920' }}>
+                                  className="text-xs hover:underline" style={{ color: '#FD8141' }}>
                                   ↺ auto
                                 </button>
                               )}
                             </>
                           ) : hasIngredients ? (
-                            <span className="text-xs" style={{ color: '#1B7B5E' }}>from ingredients</span>
+                            <span className="text-xs" style={{ color: '#FD8141' }}>from ingredients</span>
                           ) : null}
                         </div>
                       </td>
@@ -538,12 +538,12 @@ export default function InventoryPage() {
                         <EditableNumber value={p.sale_price} onSave={v => updateProductSalePrice(p.id, v)} prefix="$" />
                       </td>
                       <td className="px-4 py-3 text-right font-semibold w-20"
-                        style={{ color: margin >= 50 ? '#1B7B5E' : margin >= 25 ? '#F47920' : '#ef4444' }}>
+                        style={{ color: margin >= 50 ? '#6AC07C' : margin >= 25 ? '#FAC62B' : '#ef4444' }}>
                         {margin.toFixed(1)}%
                       </td>
                       <td className="px-4 py-3 text-right">
                         <button onClick={() => setProductModal(p)} className="text-xs mr-2 hover:underline" style={{ color: '#6B6560' }}>Edit</button>
-                        <button onClick={() => setAdjustItem(p)} className="text-xs hover:underline" style={{ color: '#F47920' }}>Adjust</button>
+                        <button onClick={() => setAdjustItem(p)} className="text-xs hover:underline" style={{ color: '#FD8141' }}>Adjust</button>
                       </td>
                     </tr>
                   )
@@ -566,7 +566,7 @@ export default function InventoryPage() {
                 <p className="text-sm mb-3">No ingredients yet.</p>
                 <button onClick={() => setIngredientModal('new')}
                   className="px-4 py-2 text-sm rounded-xl text-white font-medium"
-                  style={{ background: '#1B7B5E' }}>
+                  style={{ background: '#FD8141' }}>
                   + Add your first ingredient
                 </button>
               </div>
@@ -592,7 +592,7 @@ export default function InventoryPage() {
                         <td className="px-4 py-3">
                           {assignedProduct ? (
                             <span className="px-2 py-0.5 rounded text-xs font-mono font-medium"
-                              style={{ background: '#FEF3E8', color: '#F47920' }}>
+                              style={{ background: '#FEF3E8', color: '#FD8141' }}>
                               {assignedProduct.sku}
                             </span>
                           ) : (
@@ -614,7 +614,7 @@ export default function InventoryPage() {
                           />
                         </td>
                         <td className="px-4 py-3 text-right w-32 font-semibold"
-                          style={{ color: costPerCan > 0 ? '#F47920' : '#9B9591' }}>
+                          style={{ color: costPerCan > 0 ? '#FD8141' : '#9B9591' }}>
                           {costPerCan > 0 ? fmt(costPerCan) : '—'}
                         </td>
                         <td className="px-4 py-3 text-right">

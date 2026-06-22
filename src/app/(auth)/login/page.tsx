@@ -2,6 +2,9 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
+const ORANGE = '#FD8141'
+const NAVY   = '#1C2035'
+
 export default function LoginPage() {
   const router = useRouter()
   const [password, setPassword] = useState('')
@@ -28,12 +31,11 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center" style={{ background: '#FDFAF5' }}>
       <div className="w-full max-w-sm">
-        {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4" style={{ background: '#F47920' }}>
-            <span className="text-white text-2xl font-black">OJ</span>
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4" style={{ background: NAVY }}>
+            <span style={{ color: ORANGE, fontFamily: "'Barlow Condensed', sans-serif", fontStyle: 'italic', fontWeight: 800, fontSize: '1.4rem', letterSpacing: '0.04em' }}>OJ</span>
           </div>
-          <h1 className="text-2xl font-bold" style={{ color: '#1A1A1A' }}>OJ Sippin</h1>
+          <h1 className="brand-heading text-3xl" style={{ color: NAVY }}>OJ SIPPIN</h1>
           <p className="text-sm mt-1" style={{ color: '#6B6560' }}>Business Platform</p>
         </div>
 
@@ -48,7 +50,7 @@ export default function LoginPage() {
               autoFocus
               className="w-full border rounded-xl px-4 py-3 text-base outline-none transition-all"
               style={{ borderColor: error ? '#ef4444' : '#E8E2D9' }}
-              onFocus={e => e.target.style.borderColor = '#F47920'}
+              onFocus={e => e.target.style.borderColor = ORANGE}
               onBlur={e => e.target.style.borderColor = error ? '#ef4444' : '#E8E2D9'}
             />
             {error && <p className="text-red-500 text-sm mt-1.5">{error}</p>}
@@ -57,13 +59,13 @@ export default function LoginPage() {
             type="submit"
             disabled={loading || !password}
             className="w-full text-white font-semibold py-3 rounded-xl transition-opacity disabled:opacity-50"
-            style={{ background: '#F47920' }}
+            style={{ background: ORANGE }}
           >
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
 
-        <p className="text-center text-xs mt-6" style={{ color: '#6B6560' }}>Hype By Nature 🍊</p>
+        <p className="text-center text-xs mt-6" style={{ color: '#6B6560' }}>Sippin Juice Company 🍊</p>
       </div>
     </div>
   )

@@ -51,7 +51,7 @@ function ContactForm({ initial, onSave, onCancel }: {
           <button onClick={onCancel} className="px-4 py-2 text-sm border rounded-lg" style={{ borderColor: '#E8E2D9', color: '#6B6560' }}>Cancel</button>
           <button onClick={() => form.name && onSave(form)} disabled={!form.name}
             className="px-4 py-2 text-sm rounded-lg text-white font-medium disabled:opacity-50"
-            style={{ background: '#1B7B5E' }}>
+            style={{ background: '#FD8141' }}>
             {initial ? 'Save Changes' : 'Add Contact'}
           </button>
         </div>
@@ -92,10 +92,10 @@ export default function ContactsPage() {
   return (
     <div className="p-8 max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold" style={{ color: '#1A1A1A' }}>Contacts</h1>
+        <h1 className="brand-heading text-4xl" style={{ color: '#1A1A1A' }}>Contacts</h1>
         <button onClick={() => setModal('new')}
           className="px-4 py-2 text-sm rounded-xl text-white font-medium"
-          style={{ background: '#1B7B5E' }}>
+          style={{ background: '#FD8141' }}>
           + New Contact
         </button>
       </div>
@@ -128,7 +128,7 @@ export default function ContactsPage() {
                   <td className="px-4 py-3" style={{ color: '#6B6560' }}>{c.email}</td>
                   <td className="px-4 py-3" style={{ color: '#6B6560' }}>{c.phone}</td>
                   <td className="px-4 py-3 text-right">
-                    <button onClick={() => setModal(c)} className="text-xs mr-3 hover:underline" style={{ color: '#F47920' }}>Edit</button>
+                    <button onClick={() => setModal(c)} className="text-xs mr-3 hover:underline" style={{ color: '#FD8141' }}>Edit</button>
                     <button onClick={() => deleteContact(c.id)} className="text-xs hover:underline" style={{ color: '#ef4444' }}>Delete</button>
                   </td>
                 </tr>
