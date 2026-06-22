@@ -93,7 +93,7 @@ export default function DashboardPage() {
             <CartesianGrid strokeDasharray="3 3" stroke="#E8E2D9" vertical={false} />
             <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#6B6560' }} axisLine={false} tickLine={false} />
             <YAxis tickFormatter={(v: number) => `$${v >= 1000 ? (v/1000).toFixed(0)+'k' : v}`} tick={{ fontSize: 11, fill: '#6B6560' }} axisLine={false} tickLine={false} />
-            <Tooltip formatter={(v: number) => fmt(v)} contentStyle={{ borderRadius: 8, border: '1px solid #E8E2D9', fontSize: 13 }} />
+            <Tooltip formatter={(v) => fmt(v as number)} contentStyle={{ borderRadius: 8, border: '1px solid #E8E2D9', fontSize: 13 }} />
             <Bar dataKey="revenue" name="Revenue" fill="#1B7B5E" radius={[3,3,0,0]} />
             <Bar dataKey="expenses" name="Expenses" fill="#F47920" radius={[3,3,0,0]} />
           </BarChart>
