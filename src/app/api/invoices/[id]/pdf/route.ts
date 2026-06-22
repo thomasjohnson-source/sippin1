@@ -318,9 +318,10 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
   ` as InvLine[]
   invoice.settings = (await sql`SELECT * FROM settings WHERE id=1`)[0] as InvData['settings']
 
-  const buffer = await renderToBuffer(React.createElement(InvoiceDoc, { inv: invoice }))
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const buffer = await renderToBuffer(React.createElement(InvoiceDoc, { inv: invoice }) as any)
 
-  return new NextResponse(buffer, {
+  return new NextResponse(buffer as unknown as BodyInit, {
     headers: {
       'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename="${invoice.invoice_number}.pdf"`,
